@@ -1,3 +1,2 @@
-# Demo
-Getting started
-Author - Rumani
+# website
+ISTE project

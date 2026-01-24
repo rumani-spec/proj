@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bug Hunt Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Bug Hunt Lab</h1>
+    <p>Each section has hidden bugs in HTML, CSS or JavaScript. Use DevTools and your brain to find and fix them.</p>
+  </header>
+
+  <nav>
+    <a href="#timer-challenge">Timer Challenge</a>
+    <a href="#todo-challenge">Todo Challenge</a>
+    <a href="#quiz-challenge">Quiz Challenge</a>
+  </nav>
+
+  <main>
+    <!-- Level 1: Timer -->
+    <section id="timer-challenge" class="challenge">
+      <h2>Level 1: Confused Timer</h2>
+      <p>The timer should count seconds smoothly from 0 when you press start, and stop when you press stop.</p>
+      <div class="timer-box">
+        <p>Time: <span id="time-display">0</span> s</p>
+        <button id="start-timer">Start</button>
+        <button id="stop-timer">Stop</button>
+      </div>
+      <!-- Hint: Check how many intervals are created and if the time resets. -->
+    </section>
+
+    <!-- Level 2: Todo List -->
+    <section id="todo-challenge" class="challenge">
+      <h2>Level 2: Moody Todo List</h2>
+      <p>Add tasks and mark them as done. Deleting tasks should work correctly.</p>
+      <div class="todo-box">
+        <input id="todo-input" type="text" placeholder="New task">
+        <button id="add-todo">Add</button>
+        <ul id="todo-list">
+          <!-- Items appear here -->
+        </ul>
+      </div>
+      <!-- Hint: Event delegation and indexing might be wrong. -->
+    </section>
+
+    <!-- Level 3: Quiz -->
+    <section id="quiz-challenge" class="challenge">
+      <h2>Level 3: Suspicious Quiz Score</h2>
+      <p>Answer the questions and check your final score. Some answers are not counted correctly.</p>
+
+      <form id="quiz-form">
+        <div class="question">
+          <p>1) Which tag is used for the largest heading in HTML?</p>
+          <label><input type="radio" name="q1" value="h1"> &lt;h1&gt;</label>
+          <label><input type="radio" name="q1" value="h6">&lt;h6&gt;</label>
+          <label><input type="radio" name="q1" value="p">&lt;p&gt;</label>
+        </div>
+
+        <div class="question">
+          <p>2) Which CSS property controls the text color?</p>
+          <label><input type="radio" name="q2" value="background-color">background-color</label>
+          <label><input type="radio" name="q2" value="color">color</label>
+          <label><input type="radio" name="q2" value="font-weight">font-weight</label>
+        </div>
+
+        <div class="question">
+          <p>3) In JavaScript, which symbol is used for strict equality?</p>
+          <label><input type="radio" name="q3" value="==">==</label>
+          <label><input type="radio" name="q3" value="===">===</label>
+          <label><input type="radio" name="q3" value="=">=</label>
+        </div>
+
+        <button type="submit">Submit Quiz</button>
+      </form>
+
+      <p id="quiz-result"></p>
+      <!-- Hint: Check both the scoring logic and how form submission is handled. -->
+    </section>
+  </main>
+
+  <footer>
+    <p>Bug Hunt Lab – Practice debugging web apps.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

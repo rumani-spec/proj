@@ -24,10 +24,11 @@
       <p>The timer should count seconds smoothly from 0 when you press start, and stop when you press stop.</p>
       <div class="timer-box">
         <p>Time: <span id="time-display">0</span> s</p>
-        <button id="start-timer">Start</button>
+        <!-- EASY BUG (HTML/JS): wrong id, JS will look for #start-timer -->
+        <button id="start-time">Start</button>
         <button id="stop-timer">Stop</button>
       </div>
-      <!-- Hint: Check how many intervals are created and if the time resets. -->
+      <!-- Hint: Check the button id used in JavaScript vs HTML. -->
     </section>
 
     <!-- Level 2: Todo List -->
@@ -36,12 +37,13 @@
       <p>Add tasks and mark them as done. Deleting tasks should work correctly.</p>
       <div class="todo-box">
         <input id="todo-input" type="text" placeholder="New task">
-        <button id="add-todo">Add</button>
+        <!-- MEDIUM BUG (HTML/JS): type=button changed to submit; will try to submit the page -->
+        <button id="add-todo" type="submit">Add</button>
         <ul id="todo-list">
           <!-- Items appear here -->
         </ul>
       </div>
-      <!-- Hint: Event delegation and indexing might be wrong. -->
+      <!-- Hint: Why does the page refresh when adding todos? -->
     </section>
 
     <!-- Level 3: Quiz -->
@@ -49,6 +51,7 @@
       <h2>Level 3: Suspicious Quiz Score</h2>
       <p>Answer the questions and check your final score. Some answers are not counted correctly.</p>
 
+      <!-- MEDIUM + HARD BUGS will live in the JS that reads this form -->
       <form id="quiz-form">
         <div class="question">
           <p>1) Which tag is used for the largest heading in HTML?</p>
@@ -64,18 +67,19 @@
           <label><input type="radio" name="q2" value="font-weight">font-weight</label>
         </div>
 
+        <!-- HARD BUG (HTML/JS combo): duplicated name 'q2' instead of 'q3', JS thinks this is question 2 -->
         <div class="question">
           <p>3) In JavaScript, which symbol is used for strict equality?</p>
-          <label><input type="radio" name="q3" value="==">==</label>
-          <label><input type="radio" name="q3" value="===">===</label>
-          <label><input type="radio" name="q3" value="=">=</label>
+          <label><input type="radio" name="q2" value="==">==</label>
+          <label><input type="radio" name="q2" value="===">===</label>
+          <label><input type="radio" name="q2" value="=">=</label>
         </div>
 
         <button type="submit">Submit Quiz</button>
       </form>
 
       <p id="quiz-result"></p>
-      <!-- Hint: Check both the scoring logic and how form submission is handled. -->
+      <!-- Hint: Check radio group names and how the JS reads them. -->
     </section>
   </main>
 
@@ -86,3 +90,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+

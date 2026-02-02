@@ -7,8 +7,8 @@ const stopBtn = document.getElementById('stop-timer');
 
 if (startBtn && stopBtn && timeDisplay) {
   startBtn.addEventListener('click', () => {
-    // BUG: timer can be started multiple times, making it speed up
-    // BUG: time is never reset when starting again
+    // MEDIUM BUG #1: multiple intervals can be started; no guard
+    // (fix would be: only create a new interval if timerId is null)
     timerId = setInterval(() => {
       time++;
       timeDisplay.textContent = time;
@@ -18,8 +18,9 @@ if (startBtn && stopBtn && timeDisplay) {
   stopBtn.addEventListener('click', () => {
     if (timerId !== null) {
       clearInterval(timerId);
+      // EASY BUG: timerId is never reset, so code cannot detect stopped state
+      // (fix would be: timerId = null;)
     }
-    // BUG: forgetting to clear timerId, so logic cannot detect running state
   });
 }
 
@@ -53,7 +54,8 @@ if (todoInput && addTodoBtn && todoList) {
     li.appendChild(deleteBtn);
     todoList.appendChild(li);
 
-    // BUG: forgetting to clear input properly
+    // MEDIUM BUG #2: input not cleared correctly (leaves a space)
+    // (fix would be: todoInput.value = '';)
     todoInput.value = ' ';
   });
 
@@ -66,7 +68,9 @@ if (todoInput && addTodoBtn && todoList) {
 
       if (target.textContent === 'Done') {
         const textSpan = item.querySelector('.todo-text');
-        // BUG: toggling class name wrongly
+        if (!textSpan) return;
+
+        // This part is actually correct (no bug here).
         if (textSpan.className === 'todo-text') {
           textSpan.className = 'done';
         } else {
@@ -75,7 +79,8 @@ if (todoInput && addTodoBtn && todoList) {
       }
 
       if (target.textContent === 'Delete') {
-        // BUG: delete wrong element (the list instead of item)
+        // HARD BUG: removes the entire list instead of just the clicked item
+        // (fix would be: todoList.removeChild(item); or item.remove();)
         todoList.remove();
       }
     }
@@ -88,7 +93,9 @@ const quizResult = document.getElementById('quiz-result');
 
 if (quizForm && quizResult) {
   quizForm.addEventListener('submit', (event) => {
-    // BUG: form reloads page, loses result
+    // NOTE: this time we PREVENT default, so page won't reload
+    event.preventDefault();
+
     let score = 0;
 
     const q1 = quizForm.elements['q1'].value;
@@ -99,13 +106,14 @@ if (quizForm && quizResult) {
     if (q1 === 'h1') {
       score += 1;
     }
-    if (q2 = 'color') {  // BUG: assignment instead of comparison
+    if (q2 === 'color') {
       score += 1;
     }
     if (q3 === '===') {
-      score == score + 1; // BUG: comparison operator used instead of +=
+      score += 1;
     }
 
     quizResult.textContent = 'Your score: ' + score + '/3';
   });
 }
+

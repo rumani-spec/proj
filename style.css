@@ -39,7 +39,8 @@ main {
   margin: 0 auto;
 }
 
-/* BUG 1: selector typo: .chalenge instead of .challenge */
+/* EASY BUG (#1): selector typo: .chalenge instead of .challenge
+   -> whole challenge cards lose their background box styling */
 .chalenge {
   background: #111827;
   border-radius: 8px;
@@ -48,7 +49,7 @@ main {
   border: 1px solid #1f2937;
 }
 
-/* Intended correct selector (students should notice the issue) */
+/* Correct selector for heading only (this part is fine) */
 .challenge h2 {
   margin-top: 0;
   color: #7dd3fc;
@@ -63,7 +64,8 @@ main {
   border: 1px solid #1f2937;
 }
 
-/* BUG 2: buttons look disabled because of low contrast */
+/* MEDIUM BUG (#2): buttons look disabled because of low contrast
+   text color = background color, so label is invisible on dark theme */
 button {
   background: #0f172a;
   color: #0f172a;
@@ -76,6 +78,20 @@ button {
 
 button:hover {
   background: #0284c7;
+}
+
+/* MEDIUM BUG (#3): overly broad selector breaks other text
+   Every element with class .done gets line-through,
+   but JS adds class "done" alone, not "todo-text done" */
+.done {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+/* Intended correct, but specificity now loses to .done above for some cases */
+.todo-text.done {
+  text-decoration: line-through;
+  color: #9ca3af;
 }
 
 #todo-input {
@@ -103,11 +119,6 @@ button:hover {
   margin-bottom: 0.3rem;
 }
 
-.todo-text.done {
-  text-decoration: line-through;
-  color: #9ca3af;
-}
-
 /* Quiz */
 .question {
   margin-bottom: 0.75rem;
@@ -130,8 +141,9 @@ button:hover {
   font-weight: 600;
 }
 
-/* Simple responsiveness */
-@media (max-width: 600px) {
+/* HARDEST BUG (#4): media query written with wrong unit "600xp"
+   -> responsiveness never triggers on mobile screens */
+@media (max-width: 600xp) {
   nav {
     flex-direction: column;
   }

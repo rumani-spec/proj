@@ -1,150 +1,35 @@
-* {
-  box-sizing: border-box;
+/* BUG 1: Button hidden far off-screen */
+.sign-in-btn {
+    position: absolute;
+    top: -9000px; /* must be changed to 0 */
 }
 
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #0b1020;
-  color: #f5f5f5;
+/* BUG 2: Invisible shield pseudo-element */
+.btn-hitbox::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: transparent;
+    z-index: 9999; /* must be removed */
 }
 
-header {
-  padding: 1.5rem;
-  background: linear-gradient(135deg, #3949ab, #1e88e5);
-  text-align: center;
+/* BUG 3: Progress bar nested style missing closing brace */
+#progress {
+    margin: 20px;
+    progress {
+        color: green;
+    }
+/* missing closing brace causes cascade */
+
+/* BUG 4: Wrong unit inside nested rule */
+img {
+    width: 200pxt;
 }
 
-nav {
-  display: flex;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  background: #111827;
-}
-
-nav a {
-  color: #cbd5f5;
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-main {
-  padding: 1rem;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-/* EASY BUG (#1): selector typo: .chalenge instead of .challenge
-   -> whole challenge cards lose their background box styling */
-.chalenge {
-  background: #111827;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid #1f2937;
-}
-
-/* Correct selector for heading only (this part is fine) */
-.challenge h2 {
-  margin-top: 0;
-  color: #7dd3fc;
-}
-
-.timer-box,
-.todo-box {
-  margin-top: 0.5rem;
-  padding: 0.75rem;
-  border-radius: 6px;
-  background: #020617;
-  border: 1px solid #1f2937;
-}
-
-/* MEDIUM BUG (#2): buttons look disabled because of low contrast
-   text color = background color, so label is invisible on dark theme */
-button {
-  background: #0f172a;
-  color: #0f172a;
-  border: 1px solid #38bdf8;
-  padding: 0.45rem 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-button:hover {
-  background: #0284c7;
-}
-
-/* MEDIUM BUG (#3): overly broad selector breaks other text
-   Every element with class .done gets line-through,
-   but JS adds class "done" alone, not "todo-text done" */
-.done {
-  text-decoration: line-through;
-  color: #9ca3af;
-}
-
-/* Intended correct, but specificity now loses to .done above for some cases */
-.todo-text.done {
-  text-decoration: line-through;
-  color: #9ca3af;
-}
-
-#todo-input {
-  width: 70%;
-  padding: 0.4rem;
-  border-radius: 4px;
-  border: 1px solid #4b5563;
-  margin-right: 0.5rem;
-}
-
-#todo-list {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 0.75rem;
-}
-
-.todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #020617;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
-  border: 1px solid #1f2937;
-  margin-bottom: 0.3rem;
-}
-
-/* Quiz */
-.question {
-  margin-bottom: 0.75rem;
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: 1px dashed #374151;
-}
-
-.question p {
-  margin: 0 0 0.25rem 0;
-}
-
-.question label {
-  display: block;
-  font-size: 0.9rem;
-}
-
-#quiz-result {
-  margin-top: 0.75rem;
-  font-weight: 600;
-}
-
-/* HARDEST BUG (#4): media query written with wrong unit "600xp"
-   -> responsiveness never triggers on mobile screens */
-@media (max-width: 600xp) {
-  nav {
-    flex-direction: column;
-  }
+/* BUG 5: Media query malformed */
+@media screen and (max-width: 600px {
+    .sign-in-btn {
+        font-size: 12px;
+    }
 }

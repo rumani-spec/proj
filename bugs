@@ -1,70 +1,35 @@
-List of the 4 bugs in html
-Easy (Timer)
+html bugs 
+- Sign-in button hidden off-screen
+- .sign-in-btn has top: -9000px, making the button invisible.
+- Invisible overlay div above button
+- <div class="btn-hitbox"></div> sits on top of the button, blocking clicks.
+- Input box wrong type
+- <input type="text"> instead of type="number, misleading for 4-digit code entry.
+- Progress bar nested incorrectly
+- <progress> inside <div> but braces/styles broken in CSS, causing layout issues.
+- Script loaded inside nested <div>
+- <script src="script.js"></script> placed inside a <div>, unusual and confusing.
 
-Bug: Start button id is start-time, but typical JS will query document.getElementById("start-timer").
+js bugs
+11. 	Infinite recursion in 
+• 	Function calls itself endlessly, freezing the browser.
+12. 	Button click triggers infinite loop
+• 	 → hangs system.
+13. 	Security check rejects all codes except 0777
+• 	Logic only accepts , everything else denied.
+14. 	Nested shadowing logic
+• 	Inner block redefines  variable, confusing debugging.
+15. 	Missing  function
+• 	Called but never defined, throwing console error.
 
-Effect: Start button “does nothing” because the event listener never attaches.
-
-Medium (Todo – form behavior)
-
-Bug: Add button has type="submit" instead of type="button".
-
-Effect: Clicking it submits the surrounding form or page (if you wrap it later), causing unwanted reload instead of just adding a todo.
-
-Medium (Quiz – scoring logic target)
-
-Intended: JS will probably read values by names q1, q2, q3 and compare to correct answers.
-
-Combined with bug 4, this makes some answers not counted correctly.
-
-Hard (Quiz – duplicated radio group name)
-
-Bug: Third question radios use name="q2" instead of name="q3".
-
-Effect:
-
-Questions 2 and 3 share the same group, so only one of them can be selected at a time.
-
-Any quiz-scoring code that expects q3 will never find an answer, leading to a wrong final score.
-
-bugs in js 
-Easy (Timer stop state)
-
-timerId is never set back to null after clearInterval, so code cannot reliably know if the timer is running.
-
-Medium (Timer multiple intervals)
-
-Start handler always calls setInterval without checking timerId, so clicking Start repeatedly makes the timer speed up.
-
-Medium (Todo input clear)
-
-After adding a todo, todoInput.value = ' ' leaves a space instead of clearing the field completely.
-
-Hard (Todo delete)
-
-In the delegated click handler, todoList.remove() deletes the entire list instead of just the clicked item.
-
-bugs in css
-Easy – wrong selector name
-
-.chalenge { … } should be .challenge { … }.
-
-Effect: challenge sections are not styled as cards.
-
-Medium – invisible button text
-
-button { background: #0f172a; color: #0f172a; } uses the same color for background and text.
-
-Effect: buttons look empty/disabled due to very low contrast.
-
-Medium – over‑broad .done selector
-
-.done { … } styles any element with class done, not just todo text.
-
-Effect: anything that reuses done class in future will unexpectedly appear crossed out; there is also a specificity/confusion angle.
-
-Hardest – invalid media query unit
-
-@media (max-width: 600xp) uses xp instead of px.
-
-Effect: responsive rule never applies, navigation never stacks on smaller screens, and it’s subtle because everything else looks fine
+css bugs 
+6. 	Button hidden far off-screen
+• 	 pushes it out of view.
+7. 	Pseudo-element shield
+• 	 creates an invisible overlay with , blocking clicks.
+8. 	Progress bar style missing closing brace
+• 	Nested  inside  without proper closure breaks cascade.
+9. 	Invalid unit
+• 	 → invalid unit prevents proper rendering.
+10. 	Malformed media query
+• 	 missing closing parenthesis.
